@@ -41,7 +41,6 @@ fn part02(filename: &str) -> Result<()> {
                 let (adjacent, line, col) = is_adjacent(i, start as usize, end as usize, &lines);
 
                 if (adjacent) {
-                    // dbg!(number);
                     if let Some(i) = adjaceny_list.get(&[line, col]) {
                         adjaceny_list.insert([line, col], [(i[0] + 1), number * i[1]]);
                     } else {
@@ -54,9 +53,6 @@ fn part02(filename: &str) -> Result<()> {
             }
         }
     }
-
-    // dbg!(&adjaceny_list);
-    // let values = &adjaceny_list.values().filter(|&v|v[0] == 0 );
 
     let values: Vec<_> = adjaceny_list
         .values()
@@ -71,7 +67,6 @@ fn part02(filename: &str) -> Result<()> {
 
     dbg!(sum);
 
-    // dbg!(&adjaceny_list.values().sum::<usize>());
     Ok(())
 }
 
