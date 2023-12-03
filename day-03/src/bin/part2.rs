@@ -1,4 +1,4 @@
-use std::{collections::HashMap, io::Result};
+use std::{collections::BTreeMap, io::Result};
 use utils::get_puzzle_input;
 
 fn main() -> Result<()> {
@@ -7,7 +7,8 @@ fn main() -> Result<()> {
 }
 
 fn part02(filename: &str) -> Result<()> {
-    let mut adjaceny_list: HashMap<[usize; 2], [usize; 2]> = HashMap::new();
+
+    let mut adjency_list:BTreeMap<[usize; 2], [usize; 2]> = BTreeMap::new();
 
     let input = get_puzzle_input(filename).unwrap();
     let lines = input.lines().collect::<Vec<&str>>();
@@ -41,10 +42,10 @@ fn part02(filename: &str) -> Result<()> {
                 let (adjacent, line, col) = is_adjacent(i, start as usize, end as usize, &lines);
 
                 if (adjacent) {
-                    if let Some(i) = adjaceny_list.get(&[line, col]) {
-                        adjaceny_list.insert([line, col], [(i[0] + 1), number * i[1]]);
+                    if let Some(i) = adjency_list.get(&[line, col]) {
+                        adjency_list.insert([line, col], [(i[0] + 1), number * i[1]]);
                     } else {
-                        adjaceny_list.insert([line, col], [0, number]);
+                        adjency_list.insert([line, col], [0, number]);
                     }
                 }
 
@@ -54,7 +55,8 @@ fn part02(filename: &str) -> Result<()> {
         }
     }
 
-    let values: Vec<_> = adjaceny_list
+    
+    let values: Vec<_> = adjency_list // adjaceny_list
         .values()
         .filter(|v| v[0] != 0)
         .map(|v| v[1])
